@@ -1,31 +1,25 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import Joke from "./Joke";
 import "./JokeList.css";
 
 /** List of jokes. */
 
-class JokeList extends Component {
-  static defaultProps = {
-    numJokesToGet: 5
-  };
+function JokeList() {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      jokes: [],
-      isLoading: true
-    };
+  const [ jokes, setJokes ] = useState([]);
+  const [ isLoading, setIsLoading ] = useState(true);
+
 
     this.generateNewJokes = this.generateNewJokes.bind(this);
     this.vote = this.vote.bind(this);
-  }
 
   /* at mount, get jokes */
 
   componentDidMount() {
     this.getJokes();
   }
+
 
   /* retrieve jokes from API */
 
@@ -49,7 +43,7 @@ class JokeList extends Component {
         }
       }
 
-      this.setState({ jokes, isLoading: false });
+    
     } catch (err) {
       console.error(err);
     }
@@ -105,6 +99,10 @@ class JokeList extends Component {
       </div>
     );
   }
+}
+
+JokeList.defaultProps = {
+  numJokesToGet: 5
 }
 
 export default JokeList;
